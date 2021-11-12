@@ -95,10 +95,12 @@ Dalam data preparation, ada beberapa teknik yang saya gunakan untuk proses *prep
     
 2. Melakukan text cleaning terhadap judul anime
     Text cleaning berfungsi untuk merubah karakter khusus pada judul anime karena masih terdapat judul anime yang menggunakan huruf jepang atau karakter khusus, maka dari itu dibuatkan fungsi untuk melakukan text cleaning. Berikut adalah fungsi dalam melakukan text cleaning.
+    
     ![textclean](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/clean.jpeg?raw=true)
 
 3. Menganailisi data rating sekaligus membuang rating yang tidak digunakan
    Karena pada masih banyak user yang sudah menonton anime tetapi tidak memberikan nilai/rating maka dibuat proses penghapusan rating dengan nilai = '-1' yang berarti pengguna tidak memberika rating pada anime yang telah ditonton
+   
     ![perbandingan](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/perbandingan-1.jpeg?raw=true)
     ![perbandingan](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/perbandingan-2.jpeg?raw=true)
 
@@ -134,11 +136,11 @@ Dari gambar diatas dapat disimpulkan bahwa terdapat 10 anime dengan kesamaan gen
 Pada sistem rekomendasi berbasis *collaborative filtering* dengan melakukan modelling *deep learning*. Dimana model ini akan memberikan rekomendasi anime untuk seorang pengguna berdasarkan idnya. Pada tahap ini saya membuat 2 model pada collaborative filltering yang akan digunakan sebagai bahan perbandingan dalam menentukan model manakah yang terbaik untuk melakukan rekomendasi terhadap seorang user.
 - Model 1
 
-![collaborative filtering 1](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/model1.jpeg?raw=true)    
+  ![collaborative filtering 1](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/model1.jpeg?raw=true)    
 
 - Model 2
 
-![collaborative filtering 2](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/model2.jpeg?raw=true)   
+  ![collaborative filtering 2](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/model2.jpeg?raw=true)   
     
 Dari perbandingan pada kedua gambar tersebut dapat diambil kesimpulan bahwa model pertama merupakan model yang terbaik yang dapat kita lihat pada rating prediksinya terhadap sebuah anime lebih tinggi  sebesar 10.166964 dibandingkan model kedua sebesar 9.686440. 
 
@@ -169,6 +171,7 @@ Berikut adalah hasil perbandingan root_mean_squared_error dan val_root_mean_squa
  Precision adalah rasio prediksi data benar positif dibandingkan dengan keseluruhan hasil yang diprediksi positf. Precision juga menentukan tingkat ketepatan antara informasi yang diminta oleh pengguna dengan jawaban yang diberikan oleh sistem.  Berikut merukapan rumus dari Precision recomendation:
 
 ![precision](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/presicion.jpeg?raw=true)
+
 Sebelumnya karena tidak ada data target/label seperti pada supervised learning jadi kita tidak bisa menghitung dengan memanggil library scikit learn, jadi saya akan menghitung metrics evaluasinya secara manual. Maka hasil dari rekomendasi pada model cosine similarity terdapat 10/10 anime yang direkomendasikan yang memiliki genre yang relevan dengan "One Punch Man" maka metrik evaluasinya adalah 10/10 = 1. Jadi Precision dari model cosine similarity adalah 1.
 
 Berdasarkan proses yang sudah dilakukan sebelumnya maka dapat disumpulkan bahwa dari pembuatan sistem rekomendasi anime dengan memanfaatkan *Content-Based Recommendation system* dan *Collaborative Filtering* maka didapatkan hasil yang sesuai seperti yang diharapkan sebelumnya, yaitu sistem dapat merekomendasikan judul anime berdasarkan genre yang relevan dan juga bedasarkan hasil review/rating penonton lain terhadap anime sekaligus dapat merekomendasikan anime terhadap sebuah user dengan prediksi yang cukup baik.
