@@ -46,6 +46,7 @@ Untuk melihat isi data pada masing-masing file maka kita dapat melakakukan loadi
     ![rating](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/ratingcsv.jpeg?raw=true)
     ![ratingdesc](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/ratingdesc.jpeg?raw=true)
     
+    
 Dari dataset yang digunakan berikut merupakan karakteristik pada dataset tersebut:
 
 ![info](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/info.jpeg?raw=true)
