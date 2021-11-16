@@ -96,11 +96,13 @@ Dalam data preparation, ada beberapa teknik yang saya gunakan untuk proses *prep
 
     
 1. Melakukan text cleaning terhadap judul anime
-    Text cleaning berfungsi untuk merubah karakter khusus pada judul anime karena masih terdapat judul anime yang menggunakan huruf jepang atau karakter khusus, maka dari itu dibuatkan fungsi untuk melakukan text cleaning. Berikut adalah fungsi dalam melakukan text cleaning.
+    Text cleaning berfungsi untuk merubah karakter khusus pada judul anime karena masih terdapat judul anime yang menggunakan huruf jepang atau karakter khusus, maka dari itu  dibuatkan fungsi untuk melakukan text cleaning. Berikut adalah fungsi dalam melakukan text cleaning.
+    
     ![textclean](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/clean.jpeg?raw=true)
 
 2. Menganailisi data rating sekaligus membuang rating yang tidak digunakan
    Karena pada masih banyak user yang sudah menonton anime tetapi tidak memberikan nilai/rating maka dibuat proses penghapusan rating dengan nilai = '-1' yang berarti pengguna tidak memberikan rating pada anime yang telah ditonton
+   
     ![perbandingan](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/perbandingan-1.jpeg?raw=true)
     ![perbandingan](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/perbandingan-2.jpeg?raw=true)
 
@@ -111,6 +113,7 @@ Dalam data preparation, ada beberapa teknik yang saya gunakan untuk proses *prep
     ![labelencoder](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/label.jpeg?raw=true)    
 
 Tahapan diatas wajib dilakukan karena proses ini akan mempengaruhi dalam pembuatan sistem rekomendasi dan model yang akan kita buat nanti.
+
 ## Modeling and Result
 
 ### Cosine Similatiry
