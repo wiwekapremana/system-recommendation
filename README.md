@@ -45,6 +45,7 @@ Untuk melihat isi data pada masing-masing file maka kita dapat melakakukan loadi
     ![anime](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/animecsv.jpeg?raw=true)
 
 - rating.csv
+- 
     Pada data rating dapat dilihat deskripsi statistiknya seperti berikut:
     ![rating](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/ratingcsv.jpeg?raw=true)
     ![ratingdesc](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/ratingdesc.jpeg?raw=true)
