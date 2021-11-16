@@ -8,14 +8,17 @@ Anime sudah menjadi ketertarikan tersendiri bagi pencinta animasi, dimana anime 
 ![rmse](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/op2.jpg?raw=true?) 
 ## Business Understanding
 ### Problem Statement
-Pada kasus dari permasalahan pada projek ini adalah beberapa anime yang memiliki episode per season (3 bulan) tentunya terasa kurang bagi pencinta anime sehingga mereka ingin mencari anime selanjutnya yang sesuai bagi mereka dan tentunya mereka akan ragu untuk memilih anime yang ingin ditonton musim ini atau anime yang sudah lewat. Oleh karena itu,  sistem rekomendasi hadir untuk memberikan rekomendasi anime yang tepat untuk user. 
+Pada kasus dari permasalahan pada projek ini adalah beberapa anime yang memiliki episode per season (3 bulan) tentunya terasa kurang bagi pencinta anime sehingga mereka ingin mencari anime selanjutnya yang sesuai bagi mereka dan tentunya mereka akan ragu untuk memilih anime yang ingin ditonton musim ini atau anime yang sudah lewat. Oleh karena itu,  sistem rekomendasi hadir untuk memberikan rekomendasi anime yang tepat untuk user. Berdasarkan permasalah tersebut maka didapati problem statement sebagai berikut:
+- Bagaimana sistem dapat merekomendasikan anime berdasarkan genre?
+- Bagaimana sistem dapat merekomendasikan anime berdasarkan anime berdasarkan rating?
 
 ### Goal
 Goal/tujuan dari Proyek ini adalah memberikan rekomendasi anime kepada pengguna berdasarkan data genre sekaligus memberikan rekomendasi anime kepada sebuah user bedasarkan hasil review/rating penonton lain terhadap anime.
 
-### Solution
-Pada dataset anime recomedation dari proyek ini hanya terdapat data mengenai rating dan detail anime seperti genre, maka akan dilakukan sebuah metode menggunakan metode *Content-Based Filtering* dan *Collaborative Filtering*.
-*Content-Based Filtering* berguna untuk memberikan sebuah rekomendasi anime berdasarkan genre sedangkan untuk modelnya akan menggunakan model *cosine similatiry*, disamping itu *Collaborative Filtering* berguna untuk memberikan sebuah rekomendasikan anime kepada pengguna berdasarkan penilaian dari seluruh pengguna/komunitas sedangkan untuk modelnya akan menggunakan *deep learning*.
+### Solution Statment
+Untuk mencapai tujuan dalam memberikan rekomendasi anime kepada user maka saya mengajukan 2 solusi approach (algoritma atau pendekatan sistem rekomendasi) dengan metode sebagai berikut:
+- *Content-Based Filtering* berguna untuk memberikan sebuah rekomendasi anime berdasarkan genre sedangkan untuk modelnya akan menggunakan model *cosine similatiry*. Kelebihan *recommender system* dengan pendekatan content-based filtering adalah memiliki kemampuan untuk merekomendasikan item (contoh: film, lagu, artikel dll) yang sifatnya baru bagi user, karena prinsip kerjanya yaitu dengan melihat diskripsi konten yang dikandung oleh item yang pernah diberi nilai rating tinggi sebelumnya
+- *Collaborative Filtering* berguna untuk memberikan sebuah rekomendasikan anime kepada pengguna berdasarkan penilaian dari seluruh pengguna/komunitas sedangkan untuk modelnya akan menggunakan *deep learning*. Kelebihan dari pendekantan user based collaborative filtering adalah dapat menghasilkan rekomendasi yang berkualitas baik. Metode ini merupakan metode rekomendasi yang didasari atas adanya kesamaan antara pemberian rating terhadap suatu item dengan item yang pernah dirating user lain
 
 ## Data Understanding
 ![banner](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/banner.jpeg?raw=true)
@@ -42,18 +45,21 @@ Untuk melihat isi data pada masing-masing file maka kita dapat melakakukan loadi
     ![anime](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/animecsv.jpeg?raw=true)
 
 - rating.csv
-    
     Pada data rating dapat dilihat deskripsi statistiknya seperti berikut:
-    
     ![rating](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/ratingcsv.jpeg?raw=true)
     ![ratingdesc](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/ratingdesc.jpeg?raw=true)
-    
     
 Dari dataset yang digunakan berikut merupakan karakteristik pada dataset tersebut:
 
 ![info](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/info.jpeg?raw=true)
 
 Berdasarkan data diatas dapat dilihat bahwa pada data anime terdapat index sebanyak 12294 dan 7 kolom yang memiliki 1 tipe data float, 2 tipe data int dan 4 tipe data object. Pada data rating terdapat index sebanyak 7813737 dan 3 kolom yang memiliki 3 tipe data int. 
+
+Langkah selanjutnya adalah mengecek data apakah terdapat data null atau tidak, variabel yang memiliki nilai null menandakan bahwa variabel tersebut tidak menunjuk pada object/nilai apapun. Dengan adanya data null dapat membuat suatu hasil prediksi model menjadi tidak akurat. Berikut cara untuk melihat dan mengatasi hal tersebut.
+
+![null](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/isnull.jpeg?raw=true)
+
+Dapat kita lihat pada kolom genres memiliki 62 data yang kosong, Rating memiliki 230 data yang kosong, dan type memiliki 25 data yang kosong, selain itu juga dapat melihat persentase dari data kosong tersebut. Sehingga, untuk mengatasi data null maka dilakukan pembersihan dengan menghapusnya menggunakan fungsi diatas.
 
 Selanjutnya pada proses data understanding, saya telah melakukan visualisasi data terhadap tipe dari kolom 'type'(media streaming) dan genre yang paling sering terdapat/muncul dalam sebuah anime. dimana type media streaming yang dimaksud adalah jenis anime yang dikeluarkan apakah dia bertipe movie atau sebagainya. Berikut adalah visualisasi dari data media streaming seluruh anime pada animes.csv:
 
@@ -86,42 +92,33 @@ Sebelumnya seperti yang kita dapat lihat pada gambar diatas dijelaskan bahwa sel
 
 Dalam data preparation, ada beberapa teknik yang saya gunakan untuk proses *preparation*. Selain itu, ada 2 dataset yang saya akan periksa yaitu rating.csv yang dinamakan sebagai df_rating, anime.csv yand dinamakan sebagai anime_data. Berikut penjelasan beberapa teknik yang akan digunakan untuk *data preparation*dan hasil dari teknik tersebut :
 
-1. Mengecek data apakah terdapat data null atau tidak
-    Variabel yang memiliki nilai null menandakan bahwa variabel tersebut tidak menunjuk pada object/nilai apapun. Dengan adanya data null dapat membuat suatu hasil prediksi model menjadi tidak akurat. Berikut cara untuk melihat dan mengatasi hal tersebut.
-
-    ![null](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/isnull.jpeg?raw=true)
-
-    Dapat kita lihat pada kolom genres memiliki 62 data yang kosong, Rating memiliki 230 data yang kosong, dan type memiliki 25 data yang kosong, selain itu juga dapat melihat persentase dari data kosong tersebut. Sehingga, untuk mengatasi data null maka dilakukan pembersihan dengan menghapusnya menggunakan fungsi diatas.
     
-2. Melakukan text cleaning terhadap judul anime
+1. Melakukan text cleaning terhadap judul anime
     Text cleaning berfungsi untuk merubah karakter khusus pada judul anime karena masih terdapat judul anime yang menggunakan huruf jepang atau karakter khusus, maka dari itu dibuatkan fungsi untuk melakukan text cleaning. Berikut adalah fungsi dalam melakukan text cleaning.
-    
     ![textclean](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/clean.jpeg?raw=true)
 
-3. Menganailisi data rating sekaligus membuang rating yang tidak digunakan
-   Karena pada masih banyak user yang sudah menonton anime tetapi tidak memberikan nilai/rating maka dibuat proses penghapusan rating dengan nilai = '-1' yang berarti pengguna tidak memberika rating pada anime yang telah ditonton
-   
+2. Menganailisi data rating sekaligus membuang rating yang tidak digunakan
+   Karena pada masih banyak user yang sudah menonton anime tetapi tidak memberikan nilai/rating maka dibuat proses penghapusan rating dengan nilai = '-1' yang berarti pengguna tidak memberikan rating pada anime yang telah ditonton
     ![perbandingan](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/perbandingan-1.jpeg?raw=true)
     ![perbandingan](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/perbandingan-2.jpeg?raw=true)
 
-4. Cosine Similarity
-    Cosine Similarity ‘ukuran kesamaan’, salah satu implementasinya adalah pada kasus mencari tingkat kemiripan teks pada teks itu sendiri atau sentence/kalimat . Kemiripan teks bisa kita gunakan untuk membuat steganografi ataupun steganalysis linguistik. Menghitung cosine similairity dari setiap dataset menggunakan fungsi cosine_similarity dari library Sklearn. Pada tahapan ini, menghitung cosine similarity pada dataset dengan fungsi 'genre_recommendations' untuk pemberian rekomendasi anime berdasarkan kesamaan genre. 
     
-    ![cosinesimilatiry](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/cosine1.jpeg?raw=true)
-    ![cosinesimilatiry](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/cosine2.jpeg?raw=true)
-    ![cosinesimilatiry](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/cosine3.jpeg?raw=true)
-    
-5. Melakukan Label Encoder
-    Label Encoder berfungsi untuk mengkonversi variabel target, label yang akan digunakan hanya pada user_id dan anime_id yang hasilnya akan digunakan untuk melakukan model deep learning.
+3. Melakukan Label Encoder
+    Label Encoder berfungsi untuk mengkonversi variabel target, label yang akan digunakan hanya pada user_id dan anime_id yang hasilnya akan digunakan untuk melakukan model deep learning. tahap ini sangat penting karena sistem dapat membuat model dengan menggunakan metode collaborative filtering.
     
     ![labelencoder](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/label.jpeg?raw=true)    
 
-
+Tahapan diatas wajib dilakukan karena proses ini akan mempengaruhi dalam pembuatan sistem rekomendasi dan model yang akan kita buat nanti.
 ## Modeling and Result
 
 ### Cosine Similatiry
-Pada sistem rekomendasi yang berbasis *content-based-learning* saya melakukan modeling menggunakan *Cosine Simirality*. Berikut merupakan hasil dari modelling tersebut: 
+Pada sistem rekomendasi yang berbasis *content-based-learning* saya melakukan modeling menggunakan *Cosine Simirality*. Cosine Similarity ‘ukuran kesamaan’, salah satu implementasinya adalah pada kasus mencari tingkat kemiripan teks pada teks itu sendiri atau sentence/kalimat . Kemiripan teks bisa kita gunakan untuk membuat steganografi ataupun steganalysis linguistik. Menghitung cosine similairity dari setiap dataset menggunakan fungsi cosine_similarity dari library Sklearn. Pada tahapan ini, menghitung cosine similarity pada dataset dengan fungsi 'genre_recommendations' untuk pemberian rekomendasi anime berdasarkan kesamaan genre. 
+    
+![cosinesimilatiry](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/cosine1.jpeg?raw=true)
+![cosinesimilatiry](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/cosine2.jpeg?raw=true)
+![cosinesimilatiry](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/cosine3.jpeg?raw=true)
 
+Berikut merupakan hasil dari modelling tersebut: 
 Mengecek informasi genre mengenai anime "One Punch Man"
 
 ![content-based](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/opm.jpeg?raw=true)  
@@ -133,16 +130,12 @@ Dari gambar di atas dapat dilihat detail dari anime favorit saya dengan judul "O
 Dari gambar diatas dapat disimpulkan bahwa terdapat 10 anime dengan kesamaan genre yang tinggi dengan anime "One Punch Man" dan seluruh anime yang direkomendasikan memiliki genre yang relevan dengan "One Punch man"
 
 ### Deep Learning
-Pada sistem rekomendasi berbasis *collaborative filtering* dengan melakukan modelling *deep learning*. Dimana model ini akan memberikan rekomendasi anime untuk seorang pengguna berdasarkan idnya. Pada tahap ini saya membuat 2 model pada collaborative filltering yang akan digunakan sebagai bahan perbandingan dalam menentukan model manakah yang terbaik untuk melakukan rekomendasi terhadap seorang user.
-- Model 1
+Pada sistem rekomendasi berbasis *collaborative filtering* dengan menggunakan 2 model dalam melakukan modelling *deep learning*. Dimana model ini akan memberikan rekomendasi anime untuk seorang pengguna berdasarkan idnya. Pada tahap ini saya membuat 2 model pada collaborative filltering yang akan digunakan sebagai bahan perbandingan dalam menentukan model manakah yang terbaik untuk melakukan rekomendasi terhadap seorang user.
+##### Model 1
 
-  ![collaborative filtering 1](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/model1.jpeg?raw=true)    
+![collaborative filtering 1](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/model1.jpeg?raw=true)    
+Dari gambar diatas dapat dilihat bahwa hasil dari model diatas menghasilkan nilai rating_predict terhadap sebuah anime sebesar 10.166964
 
-- Model 2
-
-  ![collaborative filtering 2](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/model2.jpeg?raw=true)   
-    
-Dari perbandingan pada kedua gambar tersebut dapat diambil kesimpulan bahwa model pertama merupakan model yang terbaik yang dapat kita lihat pada rating prediksinya terhadap sebuah anime lebih tinggi  sebesar 10.166964 dibandingkan model kedua sebesar 9.686440. 
 
 ## Evaluation 
 
@@ -171,7 +164,6 @@ Berikut adalah hasil perbandingan root_mean_squared_error dan val_root_mean_squa
  Precision adalah rasio prediksi data benar positif dibandingkan dengan keseluruhan hasil yang diprediksi positf. Precision juga menentukan tingkat ketepatan antara informasi yang diminta oleh pengguna dengan jawaban yang diberikan oleh sistem.  Berikut merukapan rumus dari Precision recomendation:
 
 ![precision](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/presicion.jpeg?raw=true)
-
 Sebelumnya karena tidak ada data target/label seperti pada supervised learning jadi kita tidak bisa menghitung dengan memanggil library scikit learn, jadi saya akan menghitung metrics evaluasinya secara manual. Maka hasil dari rekomendasi pada model cosine similarity terdapat 10/10 anime yang direkomendasikan yang memiliki genre yang relevan dengan "One Punch Man" maka metrik evaluasinya adalah 10/10 = 1. Jadi Precision dari model cosine similarity adalah 1.
 
 Berdasarkan proses yang sudah dilakukan sebelumnya maka dapat disumpulkan bahwa dari pembuatan sistem rekomendasi anime dengan memanfaatkan *Content-Based Recommendation system* dan *Collaborative Filtering* maka didapatkan hasil yang sesuai seperti yang diharapkan sebelumnya, yaitu sistem dapat merekomendasikan judul anime berdasarkan genre yang relevan dan juga bedasarkan hasil review/rating penonton lain terhadap anime sekaligus dapat merekomendasikan anime terhadap sebuah user dengan prediksi yang cukup baik.
