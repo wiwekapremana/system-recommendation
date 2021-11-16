@@ -80,6 +80,7 @@ Disamping itu juga saya melakukan visualisasikan data dalam bentuk tabel berdasa
 **10 Anime dengan rating tertinggi**
 
 ![10best](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/animeTV.jpeg?raw=true)
+
 Sebelumnya seperti yang kita dapat lihat pada gambar diatas dijelaskan bahwa seluruh anime dengan rating tertinggi dimiliki oleh anime dengan tipe media streaming 'TV' jadi saya tidak perlu memunculkan anime yang bertupe 'TV' lagi.
 
 **10 Anime yang bertipe media streaming OVA dengan rating tertinggi**
@@ -136,7 +137,7 @@ Dari gambar diatas dapat disimpulkan bahwa terdapat 10 anime dengan kesamaan gen
 
 ### Deep Learning
 Pada sistem rekomendasi berbasis *collaborative filtering* dengan menggunakan 2 model dalam melakukan modelling *deep learning*. Dimana model ini akan memberikan rekomendasi anime untuk seorang pengguna berdasarkan idnya. Pada tahap ini saya membuat 2 model pada collaborative filltering yang akan digunakan sebagai bahan perbandingan dalam menentukan model manakah yang terbaik untuk melakukan rekomendasi terhadap seorang user.
-##### Model 1
+##### Model 
 
 ![collaborative filtering 1](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/model1.jpeg?raw=true)    
 Dari gambar diatas dapat dilihat bahwa hasil dari model diatas menghasilkan nilai rating_predict terhadap sebuah anime sebesar 10.166964
