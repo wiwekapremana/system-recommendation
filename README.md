@@ -45,9 +45,7 @@ Untuk melihat isi data pada masing-masing file maka kita dapat melakakukan loadi
     ![anime](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/animecsv.jpeg?raw=true)
 
 - rating.csv
- 
     Pada data rating dapat dilihat deskripsi statistiknya seperti berikut:
-    
     ![rating](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/ratingcsv.jpeg?raw=true)
     ![ratingdesc](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/ratingdesc.jpeg?raw=true)
     
@@ -80,7 +78,6 @@ Disamping itu juga saya melakukan visualisasikan data dalam bentuk tabel berdasa
 **10 Anime dengan rating tertinggi**
 
 ![10best](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/animeTV.jpeg?raw=true)
-
 Sebelumnya seperti yang kita dapat lihat pada gambar diatas dijelaskan bahwa seluruh anime dengan rating tertinggi dimiliki oleh anime dengan tipe media streaming 'TV' jadi saya tidak perlu memunculkan anime yang bertupe 'TV' lagi.
 
 **10 Anime yang bertipe media streaming OVA dengan rating tertinggi**
@@ -97,13 +94,11 @@ Dalam data preparation, ada beberapa teknik yang saya gunakan untuk proses *prep
 
     
 1. Melakukan text cleaning terhadap judul anime
-    Text cleaning berfungsi untuk merubah karakter khusus pada judul anime karena masih terdapat judul anime yang menggunakan huruf jepang atau karakter khusus, maka dari itu  dibuatkan fungsi untuk melakukan text cleaning. Berikut adalah fungsi dalam melakukan text cleaning.
-    
+    Text cleaning berfungsi untuk merubah karakter khusus pada judul anime karena masih terdapat judul anime yang menggunakan huruf jepang atau karakter khusus, maka dari itu dibuatkan fungsi untuk melakukan text cleaning. Berikut adalah fungsi dalam melakukan text cleaning.
     ![textclean](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/clean.jpeg?raw=true)
 
 2. Menganailisi data rating sekaligus membuang rating yang tidak digunakan
    Karena pada masih banyak user yang sudah menonton anime tetapi tidak memberikan nilai/rating maka dibuat proses penghapusan rating dengan nilai = '-1' yang berarti pengguna tidak memberikan rating pada anime yang telah ditonton
-   
     ![perbandingan](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/perbandingan-1.jpeg?raw=true)
     ![perbandingan](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/perbandingan-2.jpeg?raw=true)
 
@@ -113,8 +108,10 @@ Dalam data preparation, ada beberapa teknik yang saya gunakan untuk proses *prep
     
     ![labelencoder](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/label.jpeg?raw=true)    
 
-Tahapan diatas wajib dilakukan karena proses ini akan mempengaruhi dalam pembuatan sistem rekomendasi dan model yang akan kita buat nanti.
+4. Melakukan Split Data
+    Spliting data berfungsi untuk membagi string menjadi potongan-potongan tergantung pada pembatas yang bisa berupa apa saja mulai dari karakter atau angka atau bahkan teks 
 
+Tahapan diatas wajib dilakukan karena proses ini akan mempengaruhi dalam pembuatan sistem rekomendasi dan model yang akan kita buat nanti.
 ## Modeling and Result
 
 ### Cosine Similatiry
@@ -136,9 +133,29 @@ Dari gambar di atas dapat dilihat detail dari anime favorit saya dengan judul "O
 Dari gambar diatas dapat disimpulkan bahwa terdapat 10 anime dengan kesamaan genre yang tinggi dengan anime "One Punch Man" dan seluruh anime yang direkomendasikan memiliki genre yang relevan dengan "One Punch man"
 
 ### Deep Learning
-Pada sistem rekomendasi berbasis *collaborative filtering* dengan menggunakan 2 model dalam melakukan modelling *deep learning*. Dimana model ini akan memberikan rekomendasi anime untuk seorang pengguna berdasarkan idnya. Pada tahap ini saya membuat 2 model pada collaborative filltering yang akan digunakan sebagai bahan perbandingan dalam menentukan model manakah yang terbaik untuk melakukan rekomendasi terhadap seorang user.
-##### Model 
+Pada sistem rekomendasi berbasis *collaborative filtering* dengan menggunakan model dalam melakukan modelling *deep learning*. Dimana model ini akan memberikan rekomendasi anime untuk seorang pengguna berdasarkan idnya. Disini saya melakukan Collaborative Filtering berdasarkan rating dari anime dari user, berikut tahapannya.
+1. Menganalisis data rating.
+2. Membuang rating yang tidak digunakan atau diperlukan.
+3. Melakukan encoder terhadap 'user_id' dan 'anime_id'
+4. Menghitung jumlah 'user_id' dan 'anime_id'
+5. Melakukan modelling yang diawali dengan melakukan splitting terhadap data.
+6. Membuat fungsi untuk model hingga evaluasi model
+7. Membuat fungsi untuk melakukan prediksi terhadap anime yang akan direkomendasikan kepada pengguna.
+8. Menentukan model terbaik dalam memberikan rekomendasi terhadap pengguna.
 
+##### Model 1
+
+![rmse](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/param.jpeg?raw=true) 
+Dapat kita lihat diatas merupakan nilai paramater yang terdapat pada model menggunakan collaborative filtering dengan total params 7,952,700, trainable params: 7,952,700 dan non-trainable params 0. Pada model ini juga terdapat beberapa layer yang terdiri dari :
+1. input_1 (InputLayer)
+2. input_2(InputLayer)
+3. embedding (embedding)
+4. embedding_1 (embedding)
+5. flatten (Flatten)
+6. flatten_1 (Flatten)
+7. dot (Dot)
+
+Tahap ini melakukan sebuah prediksi terhdap rating pada anime 
 ![collaborative filtering 1](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/model1.jpeg?raw=true)    
 Dari gambar diatas dapat dilihat bahwa hasil dari model diatas menghasilkan nilai rating_predict terhadap sebuah anime sebesar 10.166964
 
@@ -149,10 +166,9 @@ Dalam proses evaluasi ini akan dijelaskan mengenai informasi pada perbandingan m
 
 ### Loss (Mean Squared Error Loss)
 
-Mean Squared Erorr Loss berfungsi untuk menghitung rata-rata kuadrat kesalahan antara label dan prediksi. Mean squared error dihitung sebagai rata-rata perbedaan kuadrat antara nilai yang diprediksi dan yang sebenarnya. Dengan demikian semakin rendahnya nilai loss (mean squared error loss) maka semakin baik dan akurat model yang dibuat. Berikut adalah hasil perbandingan loss dan val_loss pada kedua model yang telah dibuat.
+Mean Squared Erorr Loss berfungsi untuk menghitung rata-rata kuadrat kesalahan antara label dan prediksi. Mean squared error dihitung sebagai rata-rata perbedaan kuadrat antara nilai yang diprediksi dan yang sebenarnya. Dengan demikian semakin rendahnya nilai loss (mean squared error loss) maka semakin baik dan akurat model yang dibuat. Berikut adalah hasil perbandingan loss dan val_loss pada model yang telah dibuat.
 
-![loss](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/metriks.jpeg?raw=true) 
-![valloss](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/metriks2.jpeg?raw=true) 
+![Loss](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/loss.png?raw=true) 
 
 ### RMSE (Root Mean Squared Error)
 
@@ -160,10 +176,9 @@ RMSE adalah matrik yang berfungsi untuk menghitung kuadrat dari rata-rata selisi
 
 ![rmse](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/RMSE.jpg?raw=true) 
 
-Berikut adalah hasil perbandingan root_mean_squared_error dan val_root_mean_squared_error pada kedua model yang telah dibuat.
+Berikut adalah hasil perbandingan root_mean_squared_error dan val_root_mean_squared_error kedua model yang telah dibuat.
 
-![rmse](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/rmse.jpeg?raw=true) 
-![rmse](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/rmse2.jpeg?raw=true) 
+![rmse](https://github.com/wiwekapremana/system-recommendation/blob/main/asset/rmsefix.png?raw=true) 
 
 ### Precision
 
